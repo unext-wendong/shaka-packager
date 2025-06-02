@@ -421,7 +421,7 @@ bool RepresentationXmlNode::AddVODOnlyInfo(const MediaInfo& media_info,
 
   if (media_info.has_media_file_url() && !use_single_segment_url_with_media) {
     XmlNode base_url("BaseURL");
-    base_url.SetUrlEncodedContent(media_info.media_file_url());
+    base_url.SetContent(media_info.media_file_url());
 
     RCHECK(AddChild(std::move(base_url)));
   }
@@ -473,8 +473,7 @@ bool RepresentationXmlNode::AddVODOnlyInfo(const MediaInfo& media_info,
 
   if (use_single_segment_url_with_media) {
     XmlNode media_url("SegmentURL");
-    RCHECK(media_url.SetStringAttribute(
-        "media", urlEncode(media_info.media_file_url())));
+    RCHECK(media_url.SetStringAttribute("media", media_info.media_file_url()));
     RCHECK(child.AddChild(std::move(media_url)));
   }
 
